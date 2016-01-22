@@ -8,6 +8,9 @@ app.set("view engine", "ejs");
 var campgrounds = [
 		{name: "Salmon Creek", image: "https://farm4.staticflickr.com/3514/3844623716_427ed81275.jpg"},
 		{name: "Granite Hill", image: "https://farm3.staticflickr.com/2464/3694344957_14180103ed.jpg"},
+		{name: "MT. Hood", image: "https://farm9.staticflickr.com/8002/7299820870_e78782c078.jpg"},
+		{name: "Salmon Creek", image: "https://farm4.staticflickr.com/3514/3844623716_427ed81275.jpg"},
+		{name: "Granite Hill", image: "https://farm3.staticflickr.com/2464/3694344957_14180103ed.jpg"},
 		{name: "MT. Hood", image: "https://farm9.staticflickr.com/8002/7299820870_e78782c078.jpg"}
 
 	];

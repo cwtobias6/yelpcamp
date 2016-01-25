@@ -13,23 +13,25 @@ app.set("view engine", "ejs");
 //schema setup
 var campgroundSchema = new mongoose.Schema({
 	name: String,
-	image: String
+	image: String,
+	description: String
 });
 
 var Campground = mongoose.model("Campground", campgroundSchema);
 
-// Campground.create(
-// 	{
-// 		name: "Granite Hill", 
-// 		image: "https://farm3.staticflickr.com/2464/3694344957_14180103ed.jpg",
-// 	}, function(err, campground) {
-// 		if(err) {
-// 			console.log(err);
-// 		} else {
-// 			console.log("A New Campground has been created!!");
-// 			console.log(campground);
-// 		}
-// 	});
+Campground.create(
+	{
+		name: "Granite Hill", 
+		image: "https://farm3.staticflickr.com/2464/3694344957_14180103ed.jpg",
+		description: "This is huge! No bathrooms, no water, only granite!!"
+	}, function(err, campground) {
+		if(err) {
+			console.log(err);
+		} else {
+			console.log("A New Campground has been created!!");
+			console.log(campground);
+		}
+	});
 
 var campgrounds = [
 		{name: "Salmon Creek", image: "https://farm4.staticflickr.com/3514/3844623716_427ed81275.jpg"},
@@ -50,7 +52,7 @@ app.get("/campgrounds", function(req,res) {
 		if(err) {
 			console.log(err);
 		} else {
-			res.render("campgrounds", {campgrounds:allCampgrounds});
+			res.render("index", {campgrounds:allCampgrounds});
 			
 		}
 	})
@@ -59,8 +61,9 @@ app.get("/campgrounds", function(req,res) {
 app.post("/campgrounds", function(req,res) {
 	var name = req.body.name;
 	var image = req.body.image;
+	var desc = req.body.description;
+	var newCampground = {name:name, image:image, description:desc}
 
-	var newCampground = {name:name, image:image};
 
 	Campground.create(newCampground, function(err,newlyCreated) {
 		if(err) {
@@ -77,6 +80,34 @@ app.get('/campgrounds/new', function(req,res) {
 	res.render("new.ejs");
 });
 
+//show route
+app.get("/campgrounds/:id", function(req, res) {
+	Campground.findById(req.params.id, function(err, foundCampground) {
+		if(err) {
+			console.log(err);
+		} else {
+			res.render("show", {campground: foundCampground});
+			
+		}
+
+	});
+});
+
 app.listen(3000, function () {
   console.log('The Server has Started!!');
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

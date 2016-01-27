@@ -2,46 +2,18 @@ var express = require('express');
 var app = express();
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var Campground = require("./models/campground");
+var Comment = require("./models/comment");
+var seedDB = require("./seeds");
 
+
+seedDB();
 mongoose.connect("mongodb://localhost/yelp_camp");
 
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
-
-//schema setup
-var campgroundSchema = new mongoose.Schema({
-	name: String,
-	image: String,
-	description: String
-});
-
-var Campground = mongoose.model("Campground", campgroundSchema);
-
-Campground.create(
-	{
-		name: "Granite Hill", 
-		image: "https://farm3.staticflickr.com/2464/3694344957_14180103ed.jpg",
-		description: "This is huge! No bathrooms, no water, only granite!!"
-	}, function(err, campground) {
-		if(err) {
-			console.log(err);
-		} else {
-			console.log("A New Campground has been created!!");
-			console.log(campground);
-		}
-	});
-
-var campgrounds = [
-		{name: "Salmon Creek", image: "https://farm4.staticflickr.com/3514/3844623716_427ed81275.jpg"},
-		{name: "Granite Hill", image: "https://farm3.staticflickr.com/2464/3694344957_14180103ed.jpg"},
-		{name: "MT. Hood", image: "https://farm9.staticflickr.com/8002/7299820870_e78782c078.jpg"},
-		{name: "Salmon Creek", image: "https://farm4.staticflickr.com/3514/3844623716_427ed81275.jpg"},
-		{name: "Granite Hill", image: "https://farm3.staticflickr.com/2464/3694344957_14180103ed.jpg"},
-		{name: "MT. Hood", image: "https://farm9.staticflickr.com/8002/7299820870_e78782c078.jpg"}
-
-	];
 
 app.get('/', function (req, res) {
   res.render('landing');

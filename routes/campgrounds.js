@@ -13,6 +13,8 @@ router.get("/campgrounds", function(req,res) {
 	})
 });
 
+
+
 router.post("/campgrounds", isLoggedIn, function(req,res) {
 	var name = req.body.name;
 	var image = req.body.image;
@@ -51,6 +53,18 @@ router.get("/campgrounds/:id", function(req, res) {
 		}
 
 	});
+});
+
+// Edit Route
+router.get("/campgrounds/:id/edit", function(req,res){
+	Campground.findById(req.params.id, function(err, foundCampground) {
+		if(err) {
+			res.redirect("/campgrounds");
+		} else {
+			res.render("campgrounds/edit", {campground: foundCampground});
+		}
+	})
+
 });
 
 function isLoggedIn(req,res,next) {

@@ -37,6 +37,10 @@ router.post("/campgrounds/:id/comments",isLoggedIn, function(req,res) {
 	})
 });
 
+router.get("/campgrounds/:id/comments/:comment_id/edit", function(req,res){
+	res.send("Edit comment page");
+});
+
 function isLoggedIn(req,res,next) {
 	if(req.isAuthenticated()) {
 		return next();
